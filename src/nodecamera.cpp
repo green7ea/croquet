@@ -5,8 +5,13 @@
 NodeCamera::NodeCamera(const std::shared_ptr<Node> &node,
                        float height,
                        float distance,
+                       float theta,
                        const Vector &offset)
-    : node(node), offset(offset), height(height), distance(distance), theta(0.f)
+    : node(node)
+    , offset(offset)
+    , height(height)
+    , distance(distance)
+    , theta(theta)
 {
     const Vector eye(distance * cos(theta), distance * sin(theta), height);
     pos = node->getAbsPos() + eye;

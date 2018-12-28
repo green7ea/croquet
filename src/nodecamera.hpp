@@ -12,6 +12,7 @@ public:
     NodeCamera(const std::shared_ptr<Node> &node,
                float height,
                float distance,
+               float theta = 0.f,
                const Vector &offset = Vector());
     virtual ~NodeCamera();
 

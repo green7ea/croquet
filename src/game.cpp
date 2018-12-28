@@ -181,9 +181,16 @@ void Game::setTurn()
     auto &ring = isBluesTurn ? blueRings.front() : redRings.front();
     ring->addChild(arrow);
 
-    auto ball = isBluesTurn ? blueBall : redBall;
+    auto &ball = isBluesTurn ? blueBall : redBall;
+
+    const Vector diff = ring->getAbsPos() - ball->getAbsPos();
+
+    // We add an offset to the theta or it's too easy to get it in the target as
+    // everything is already aligned.
+    const float theta = atan2(-diff.y, -diff.x) - 0.1;
+
     cam = std::unique_ptr<Camera>(
-        new NodeCamera(ball, 1.f, 2.f, Vector(0.f, 0.f, 0.5f)));
+        new NodeCamera(ball, 1.f, 2.f, theta, Vector(0.f, 0.f, 0.5f)));
 
     ball->setOrientation(Quaternion());
     ball->addChild(mallet_offset);
