@@ -7,10 +7,10 @@ Camera::Camera(const Vector &position, const Vector &lookAt)
     setLookAt(position, lookAt);
 }
 
-Camera::Camera(const Camera *cam)
+Camera::Camera(const Camera &cam)
 {
-    this->pos = cam->pos;
-    this->dir = cam->dir;
+    this->pos = cam.pos;
+    this->dir = cam.dir;
 }
 
 Camera::~Camera()

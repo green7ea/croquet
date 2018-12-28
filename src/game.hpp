@@ -41,7 +41,7 @@ private:
     static Game *self;
 
     Node scenegraph;
-    Camera *cam;
+    std::unique_ptr<Camera> cam;
     Matrix model;
     Matrix view;
 

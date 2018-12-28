@@ -2,7 +2,7 @@
 
 #include <GL/glu.h>
 
-NodeCamera::NodeCamera(std::shared_ptr<Node> node,
+NodeCamera::NodeCamera(const std::shared_ptr<Node> &node,
                        float height,
                        float distance,
                        const Vector &offset)

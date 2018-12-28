@@ -9,7 +9,7 @@
 Texture::Texture(const std::string &filename)
 {
     SDL_Surface *surface = SDL_LoadBMP(filename.c_str());
-    GLenum texture_format;
+    GLenum texture_format = GL_RGB;
     GLint nColors;
 
     if (!surface)

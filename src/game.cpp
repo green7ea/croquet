@@ -107,12 +107,7 @@ void Game::keypress(int key)
         cam->keyMove(Vector(0.f, -1.f, 0.f));
         break;
     case 'o':
-        if (cam)
-        {
-            Camera *new_cam = new Camera(cam);
-            delete cam;
-            cam = new_cam;
-        }
+        cam = std::unique_ptr<Camera>(new Camera(*cam));
     default:
         break;
     }
@@ -183,22 +178,12 @@ void Game::setTurn()
     Arrow *arrow_ptr = dynamic_cast<Arrow *>(arrow.get());
     arrow_ptr->setBlue(isBluesTurn);
 
-    if (isBluesTurn)
-    {
-        blueRings.front()->addChild(arrow);
-    }
-    else
-    {
-        redRings.front()->addChild(arrow);
-    }
+    auto &ring = isBluesTurn ? blueRings.front() : redRings.front();
+    ring->addChild(arrow);
 
     auto ball = isBluesTurn ? blueBall : redBall;
-
-    if (cam)
-    {
-        delete cam;
-        cam = new NodeCamera(ball, 1.f, 2.f, Vector(0.f, 0.f, 0.5f));
-    }
+    cam = std::unique_ptr<Camera>(
+        new NodeCamera(ball, 1.f, 2.f, Vector(0.f, 0.f, 0.5f)));
 
     ball->setOrientation(Quaternion());
     ball->addChild(mallet_offset);
@@ -388,12 +373,6 @@ Game::Game()
 
 Game::~Game()
 {
-    if (cam)
-    {
-        delete cam;
-        cam = NULL;
-    }
-
     if (log_file)
     {
         fclose(log_file);
@@ -446,12 +425,8 @@ void Game::initLambdas()
                 extraTurn = false;
                 current = &watch;
 
-                if (cam)
-                {
-                    Camera *new_cam = new NodeLookingCamera(&ball, cam);
-                    delete cam;
-                    cam = new_cam;
-                }
+                cam = std::unique_ptr<Camera>(
+                    new NodeLookingCamera(&ball, *cam));
 
                 scenegraph.remove(mallet_offset);
                 // TODO fix

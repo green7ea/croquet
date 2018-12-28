@@ -11,7 +11,7 @@ class Camera
 public:
     Camera(const Vector &position = Vector(),
            const Vector &lookAt = Vector(1.f, 0.f, 0.f));
-    Camera(const Camera *cam);
+    Camera(const Camera &cam);
     virtual ~Camera();
 
     virtual void draw();

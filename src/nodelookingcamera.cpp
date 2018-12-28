@@ -1,9 +1,9 @@
 #include "nodelookingcamera.hpp"
 
-NodeLookingCamera::NodeLookingCamera(Node *node, const Camera *cam) : node(node)
+NodeLookingCamera::NodeLookingCamera(Node *node, const Camera &cam) : node(node)
 {
-    this->pos = cam->pos;
-    this->dir = cam->dir;
+    this->pos = cam.pos;
+    this->dir = cam.dir;
 }
 
 NodeLookingCamera::~NodeLookingCamera()

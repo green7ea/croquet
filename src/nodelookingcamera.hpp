@@ -7,7 +7,7 @@
 class NodeLookingCamera : public Camera
 {
 public:
-    NodeLookingCamera(Node *node, const Camera *cam);
+    NodeLookingCamera(Node *node, const Camera &cam);
     virtual ~NodeLookingCamera();
 
     virtual void draw();

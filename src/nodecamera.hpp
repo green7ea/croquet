@@ -9,7 +9,7 @@
 class NodeCamera : public Camera
 {
 public:
-    NodeCamera(std::shared_ptr<Node> node,
+    NodeCamera(const std::shared_ptr<Node> &node,
                float height,
                float distance,
                const Vector &offset = Vector());
