@@ -19,6 +19,7 @@ public:
 
     void init();
     void update();
+    void resize(int width, int height);
     void draw(SDL_Surface *screen);
     void keypress(int key);
     void mouseDown(int button, int x, int y);
@@ -54,6 +55,8 @@ private:
     bool isMouseDown;
     int mouseX;
     int mouseY;
+    float width;
+    float height;
 
     Vector camMove;
 

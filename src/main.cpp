@@ -43,6 +43,8 @@ static void reshape(int width, int height)
     glViewport(0, 0, (GLint)width, (GLint)height);
 }
 
+SDL_Surface *display;
+
 static void event()
 {
     SDL_Event event;
@@ -75,6 +77,12 @@ static void event()
             game.mouseMove(event.motion.x, event.motion.y, event.motion.xrel,
                            event.motion.yrel);
             break;
+        case SDL_VIDEORESIZE:
+            SDL_FreeSurface(display);
+            display = SDL_SetVideoMode(event.resize.w,event.resize.h, 24, SDL_OPENGL|SDL_RESIZABLE);
+            reshape(event.resize.w, event.resize.h);
+            game.resize(event.resize.w, event.resize.h);
+            break;
         default:
             break;
         }
@@ -88,8 +96,8 @@ int main(int argc, char **argv)
         sdldie("Couldn't initialize SDL");
     }
 
-    SDL_Surface *display = SDL_SetVideoMode(
-        800, 600, 24, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_OPENGL);
+    display = SDL_SetVideoMode(
+        800, 600, 24, SDL_DOUBLEBUF | SDL_OPENGL | SDL_RESIZABLE);
     if (!display)
     {
         sdldie("Couldn't create a window");

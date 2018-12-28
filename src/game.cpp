@@ -70,13 +70,19 @@ void Game::update()
     (*current)(*ball, new_delta);
 }
 
+void Game::resize(int width, int height)
+{
+    this->width = width;
+    this->height = height;
+}
+
 void Game::draw(SDL_Surface *screen)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45, 1, 0.1f, 1000.f);
+    gluPerspective(45, width / height, 0.1f, 1000.f);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -261,6 +267,8 @@ Game::Game()
     , model()
     , view()
     , isMouseDown(false)
+    , width(800.f)
+    , height(600.f)
     , isBluesTurn(true)
     , extraTurn(false)
     , malletSpeed(0.f)
